@@ -1,0 +1,5 @@
+---
+- name: firewalld task
+  yum: 
+    name: firewalld
+    state: present
