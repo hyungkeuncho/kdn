@@ -1,0 +1,5 @@
+---
+- name: kkk
+  yum: 
+    name: firewalld
+    state: present
