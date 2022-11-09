@@ -1,6 +1,8 @@
 ---
-- name: firewalld task
-  yum: 
-    name: firewalld
-    state: present
----
+- name: firewall task
+  hosts: all
+  tasks:
+    - name: firewall package install
+      yum:
+        name: firewalld
+        state: present
