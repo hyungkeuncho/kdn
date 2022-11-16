@@ -1,0 +1,6 @@
+---
+- name: set hostname
+  hosts: all
+  tasks:
+    - name: set hostname inventory_hostname
+      hostname: "{{ inventory_hostname }}"
