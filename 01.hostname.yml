@@ -3,9 +3,5 @@
   hosts: all
   tasks:
     - name: set hostname inventory_hostname
-      command: echo "111"
-      register: result
-
-    - name: debug
-      debug:
-        var: result
+      ansible.builtin.hostname:
+        name: web01
