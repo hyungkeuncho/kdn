@@ -3,5 +3,9 @@
   hosts: all
   tasks:
     - name: set hostname inventory_hostname
-      hostname: 
-        name: "db.testlab.local"
+      lineinfile:
+        path: /etc/sysconfig/network
+        line: "HOSTNAME={{ inventory_hostname }}"
+        owner: root
+        group: root
+        mode: '0644'
