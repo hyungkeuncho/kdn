@@ -4,4 +4,4 @@
   tasks:
     - name: set hostname inventory_hostname
       hostname: 
-        name: db.testlab.local
+        name: "db.testlab.local"
