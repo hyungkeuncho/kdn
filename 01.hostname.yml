@@ -3,9 +3,9 @@
   hosts: all
   tasks:
     - name: set hostname inventory_hostname
-      lineinfile:
-        path: /etc/sysconfig/network
-        line: "HOSTNAME={{ inventory_hostname }}"
-        owner: root
-        group: root
-        mode: '0644'
+      command: echo "111"
+      register: result
+
+    - name: debug
+      debug:
+        var: result
