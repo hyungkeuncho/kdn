@@ -5,9 +5,20 @@
     - name: create user
       user:
         name: "automation"
-        generate_ssh_key: yes
+        generate_ssh_key: no
+        password: "{{ redhat | password_hash('sha512') }}"
+      register: account_result
 
     - name: sudo create
       copy:
         content: "automation ALL= (ALL) NOPASSWD: ALL"
         dest: /etc/sudoers.d/automation
+      register: sudo_result
+
+    - name: debug create user
+      debug:
+        var: account_result
+
+    - name: debug sudo create
+      debug:
+        var: sudo_result
