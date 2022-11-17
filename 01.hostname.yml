@@ -4,4 +4,4 @@
   tasks:
     - name: set hostname inventory_hostname
       ansible.builtin.hostname:
-        name: web01
+        name: "{{ inventory_hostname }}"
