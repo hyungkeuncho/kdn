@@ -1,0 +1,9 @@
+---
+- hosts: "{{ hosts_inven }}"
+  vars:
+    timesync_ntp_servers:
+      - hostname: time.bora.net
+        pool: yes
+        iburst: yes
+  roles:
+    - rhel-system-roles.timesync
