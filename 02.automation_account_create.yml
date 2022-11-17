@@ -5,8 +5,9 @@
     - name: create user
       user:
         name: "automation"
+        state: present
         generate_ssh_key: no
-        password: "{{ redhat | password_hash('sha512') }}"
+        password: "{{ user_password | password_hash('sha512') }}"
       register: account_result
 
     - name: sudo create
