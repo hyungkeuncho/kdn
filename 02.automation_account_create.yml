@@ -1,6 +1,6 @@
 ---
 - name: create automation account for automation
-  hosts: ""
+  hosts: "hosts_inven"
   tasks:
     - name: create user
       user:
