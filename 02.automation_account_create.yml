@@ -1,6 +1,6 @@
 ---
 - name: create automation account for automation
-  hosts: all
+  hosts: ""
   tasks:
     - name: create user
       user:
