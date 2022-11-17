@@ -1,11 +1,11 @@
 ---
 - name: set hostname
-  hosts: all
+  hosts: "{{ hosts_inven }}"
   tasks:
     - name: set hostname inventory_hostname
       ansible.builtin.hostname:
         name: "{{ inventory_hostname }}"
-      registry: result
+      register: result
 
     - name: debug
       debug:
