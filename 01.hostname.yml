@@ -5,3 +5,8 @@
     - name: set hostname inventory_hostname
       ansible.builtin.hostname:
         name: "{{ inventory_hostname }}"
+      registry: result
+
+    - name: debug
+      debug:
+        var: result
