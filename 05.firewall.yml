@@ -2,7 +2,7 @@
   hosts: "{{ hosts_inven }}"
   tasks:
     - name: firewall rule service http and https
-      firewalld:
+      ansible.posix.firewalld:
         service: "{{ item }}"
         permanent: yes
         immediate: yes
@@ -12,7 +12,7 @@
         - https
 
     - name: firewall rule port 80 and 443
-      firewalld:
+      ansible.posix.firewalld:
         port: "{{ item }}"
         permanent: yes
         immediate: yes
