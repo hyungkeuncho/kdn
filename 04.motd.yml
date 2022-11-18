@@ -1,0 +1,22 @@
+---
+- name: /etc/motd create all hosts
+  hosts: "{{ hosts_inven }}"
+  become: true
+  tasks:
+    - name: motd create with proxy node
+      copy:
+        content: “Welcome to Proxy server”
+        dest: /etc/motd
+      when: inventory_hostname in groups['proxys']
+
+    - name: motd create with webservers nodes
+      copy:
+        content: “Welcome to Apache server”
+        dest: /etc/motd
+      when: inventory_hostname in groups['webs']
+
+    - name: motd create with database node
+      copy:
+        content: “Welcome to MySQL server” 
+        dest: /etc/motd
+      when: inventory_hostname in groups['dbs']
