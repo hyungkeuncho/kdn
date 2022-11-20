@@ -3,20 +3,7 @@
   tasks:
     - name: firewall rule service http and https
       ansible.posix.firewalld:
-        service: "{{ item }}"
+        service: http
         permanent: yes
         immediate: yes
         state: enabled
-      loop:
-        - http
-        - https
-
-    - name: firewall rule port 80 and 443
-      ansible.posix.firewalld:
-        port: "{{ item }}"
-        permanent: yes
-        immediate: yes
-        state: enabled
-      loop:
-        - 80/tcp
-        - 443/tcp
