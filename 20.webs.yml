@@ -8,7 +8,7 @@
           - httpd
           - mod_ssl
           - firewalld
-    state: present
+        state: present
 
     - name: service start
       service:
