@@ -1,9 +1,12 @@
 - name: Configure external zone in firewall
   hosts: "{{ hosts_inven }}"
-  tasks:
-    - name: firewall rule service http and https
-      ansible.posix.firewalld:
-        service: http
-        permanent: yes
-        immediate: yes
-        state: enabled
+  vars:
+    firewall:
+      - { zone: 'public',
+          service: [ 'http', 'https' ],
+          port: [ '80/tcp', '443/tcp' ],
+          state: 'enabled',
+          permanent: true
+        }
+  roles:
+    - rhel-system-roles.firewall
