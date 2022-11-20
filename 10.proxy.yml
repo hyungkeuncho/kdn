@@ -1,0 +1,44 @@
+---
+- name: proxy server setting
+  hosts: "{{ hosts_inven }}"
+  tasks:
+  vars:
+    haproxy_frontend_name: 'hafrontend'
+    haproxy_frontend_bind_address: '*'
+    haproxy_frontend_port: 80
+    haproxy_frontend_mode: 'http'
+    haproxy_backend_name: 'habackend'
+    haproxy_backend_mode: 'http'
+    haproxy_backend_balance_method: 'roundrobin'
+    haproxy_backend_httpchk: 'HEAD / HTTP/1.1\r\nHost:localhost'
+    haproxy_backend_servers:
+      - name: app1
+        address: 192.168.122.12:80
+      - name: app2
+        address: 192.168.122.13:80
+  pre_tasks:
+    - name: firewall setting
+      yum:
+        name: firewalld
+        state: present
+    - name: firewall service start
+      service:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: 80 rule firewalld
+      firewalld:
+        port: 80/tcp
+        permanent: true
+        immediate: true
+        state: enabled
+        
+    - name: http rule firewalld
+      firewalld:
+        service: http
+        permanent: true
+        immediate: true
+        state: enabled
+  roles:
+    - geerlingguy.haproxy
