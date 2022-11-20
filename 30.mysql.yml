@@ -31,9 +31,9 @@
         permanent: true
         immediate: true
         state: enabled
-    - name: template work
+    - name: setting work
       copy:
-        src: |
+        content: |
           [mysqld]
           bind_address = {{ ansible_default_ipv4.address }}
           skip_name_resolve
