@@ -1,0 +1,46 @@
+---
+- name: web servers setting
+  hosts: "{{ hosts_inven }}"
+  tasks:
+    - name: package install
+      yum:
+        name:
+          - httpd
+          - mod_ssl
+          - firewalld
+    state: present
+
+    - name: service start
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop:
+        - httpd
+        - firewalld
+
+    - name: firewall rule setting 80 and 443
+      firewalld:
+        port: "{{ item }}/tcp"
+        permanent: true
+        immediate: true
+        state: enabled
+      loop:
+        - 80
+        - 443
+    - name: firewall rule setting http and https
+      firewalld:
+        service: "{{ item }}"
+        permanent: true
+        immediate: true
+        state: enabled
+      loop:
+        - http
+        - https
+    - name: web contents
+      copy:
+        content: |
+          "This is server's information \
+          IP Address: {{ ansible_default_ipv4.address }} \
+          Host Name: {{ inventory_hostname }}"
+        dest: /var/www/html/index.html
