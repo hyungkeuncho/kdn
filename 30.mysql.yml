@@ -1,0 +1,51 @@
+---
+- name: mysql install
+  hosts: "{{ hosts_inven }}"
+  tasks:
+    - name: package install
+      yum:
+        name: 
+          - mysql80-community-release
+          - mysql-server
+          - firewalld
+          - python3-PyMySQL
+        state: present
+        disable_gpg_check: true
+    - name: firewalld service start
+      service:
+        name: firewalld
+        state: started
+        enabled: true
+    - name: firewall rule open
+      firewalld:
+        port: 3306/tcp
+        permanent: true
+        immediate: true
+        state: enabled
+    - name: template work
+      copy:
+        src: |
+          [mysqld]
+          bind_address = {{ ansible_default_ipv4.address }}
+          skip_name_resolve
+          datadir=/var/lib/mysql
+          socket=/var/lib/mysql/mysql.sock
+
+          symbolic-links=0
+          sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES 
+
+          [mysqld_safe]
+          log-error=/var/log/mysqld.log
+          pid-file=/var/run/mysqld/mysqld.pid
+        dest: /root/.my.cnf
+    - name: service start
+      service:
+        name: mysqld
+        state: started
+        enabled: yes
+
+    - name: mysql root password setting
+      mysql_user:
+        name: root
+        password: "{{ database_password }}"
+        state: present
