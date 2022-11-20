@@ -1,0 +1,9 @@
+---
+- name: package install
+  hosts: "{{ hosts_inven }}"
+  tasks:
+    - name: http install for webs group
+      yum:
+        name: httpd
+        state: present
+    
