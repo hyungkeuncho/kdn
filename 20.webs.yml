@@ -40,7 +40,7 @@
     - name: web contents
       copy:
         content: |
-          "This is server's information \
-          IP Address: {{ ansible_default_ipv4.address }} \
-          Host Name: {{ inventory_hostname }}"
+          This is server's information 
+          IP Address: {{ ansible_default_ipv4.address }} 
+          Host Name: {{ inventory_hostname }}
         dest: /var/www/html/index.html
