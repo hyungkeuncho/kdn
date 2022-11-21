@@ -1,0 +1,11 @@
+---
+- name: resolv.conf add block
+  hosts: "{{ hosts_inven }}"
+  tasks:
+    - name: add block 
+      blockinfile:
+        path: /etc/resolv.conf
+        block: |
+          nameserver 8.8.8.8
+          nameserver 210.220.16.7
+          nameserver 168.126.63.1
