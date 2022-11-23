@@ -1,6 +1,6 @@
 ---
 - name: set hostname
-  hosts: localhost
+  hosts: "{{ hosts_inven }}"
   tasks:
     - name: set hostname inventory_hostname
       ansible.builtin.hostname:
