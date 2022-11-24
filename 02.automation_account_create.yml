@@ -4,7 +4,7 @@
   tasks:
     - name: create user
       user:
-        name: "automation"
+        name: "hycho"
         state: present
         generate_ssh_key: no
         password: "{{ user_password | password_hash('sha512') }}"
